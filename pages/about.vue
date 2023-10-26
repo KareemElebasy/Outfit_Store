@@ -19,12 +19,6 @@
       </div>
       <div class="relative">
         <img class="w-full" src="~/assets/images/about1.png" alt="image" />
-        <img
-          class="absolute bottom-0 left-[-7rem]"
-          src="about.image"
-          alt="about-imge"
-        />
-        <!-- Missing : To Fix Error Dashboard -->
       </div>
     </div>
     <div class="grid gap-10 md:grid-cols-2 pb-3">
@@ -33,7 +27,7 @@
         <h4 class="italic text-[1.8rem] pb-5 font-[500 ] uppercase">
           Our dream
         </h4>
-        <p>{{ about ? about.image : "Loading" }}</p>
+        <p>{{ about ? about?.image : "Loading" }}</p>
         <p>
           Outfit extended mission is to showcase the country's top design
           talents in a well-curated digital platform of international standards.
