@@ -18,7 +18,7 @@
         </p>
       </div>
       <div class="relative">
-        <img class="w-full" src="../assets/images/about1.png" alt="image" />
+        <img class="w-full" src="~/assets/images/about1.png" alt="image" />
         <img
           class="absolute bottom-0 left-[-7rem]"
           src="about.image"
@@ -28,7 +28,7 @@
       </div>
     </div>
     <div class="grid gap-10 md:grid-cols-2 pb-3">
-      <div><img src="../assets/images/about2.png" alt="aboutimage" /></div>
+      <div><img src="~/assets/images/about2.png" alt="aboutimage" /></div>
       <div class="my-auto w-5/6">
         <h4 class="italic text-[1.8rem] pb-5 font-[500 ] uppercase">
           Our dream
@@ -60,7 +60,7 @@
           its extended family by our certified and professional stylist.
         </p>
       </div>
-      <div><img src="../assets/images/about1.png" alt="" srcset="" /></div>
+      <div><img src="~/assets/images/about1.png" alt="" srcset="" /></div>
     </div>
   </div>
 </template>

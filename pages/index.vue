@@ -25,23 +25,28 @@
 </template>
 
 <script setup>
-// const { locale } = useI18n();
+// const { locale, locales } = useI18n();
 // Refresh All Data
-const refreshing = ref(false);
-const refreshAll = async () => {
-  refreshing.value = true;
-  try {
-    await refreshNuxtData();
-  } finally {
-    refreshing.value = false;
-  }
-};
-onMounted(() => {
-  refreshAll();
-}),
-  definePageMeta({
-    layout: "default",
+const count_of_cart = ref(0);
+
+await useAsyncData("cart", () => {
+  $fetch(`${config.public.baseURL}cart`, {
+    headers: {
+      Accept: "application/json",
+      "Accept-Language": "en",
+      "Content-type": "application/json",
+      Authorization: `Bearer ${useCookie("token").value}`,
+    },
+  }).then((res) => {
+    count_of_cart.value = res.count_of_cart;
+    console.log
+    console.log(count_of_cart);
   });
+});
+
+definePageMeta({
+  layout: "default",
+});
 
 const config = useRuntimeConfig();
 const loading = ref(true);
@@ -52,13 +57,14 @@ const flash_sale = ref(null);
 const top_rated = ref(null);
 const new_arrivals_highlights = ref(null);
 const banner = ref(null);
-const i18n = useI18n();
+// const i18n = useI18n();
 
 await useAsyncData("homeData", () => {
   $fetch(`${config.public.baseURL}home`, {
     headers: {
+      // "Accept-language": useI18n(),
       "Accept-language": "en",
-      Authorization: `Bearer${useCookie("token").value}`,
+      Authorization: `Bearer${ useCookie("token").value }`,
     },
   }).then((res) => {
     const data = res.data;

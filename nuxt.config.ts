@@ -11,7 +11,37 @@ export default defineNuxtConfig({
     transpile: ["primevue", "vee-validate/dist/rules"],
   },
   plugins: [],
-  modules: ["nuxt-swiper", "@vee-validate/nuxt", "@pinia/nuxt", "@nuxtjs/i18n"],
+  modules: ["nuxt-swiper", "@vee-validate/nuxt", "@pinia/nuxt",         [
+    '@nuxtjs/i18n',
+    {
+        locales: [
+            {
+                name: 'English',
+                code: 'en',
+                iso: 'en-US',
+                file: 'en.json',
+                dir: 'ltr',
+            },
+            {
+                name: 'عربي ',
+                code: 'ar',
+                iso: 'ar-AR',
+                file: 'ar.json',
+                dir: 'rtl',
+            },
+        ],
+        lazy: true,
+        langDir: 'locales/',
+        defaultLocale: 'en',
+        // detectBrowserLanguage: {
+        //     useCookie: true,
+        //     // cookieKey: 'hogag_website_lang',
+        //     alwaysRedirect: true,
+        //     fallbackLocale: 'en'
+        // },
+        vueI18nLoader: true,
+    }
+],],
   pinia: {
     autoImports: ["defineStore"],
   },

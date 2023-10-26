@@ -4,7 +4,7 @@
       <div>
         <img
           class="max-h-[10rem]"
-          src="../assets/images/cartempty.png"
+          src="../../assets/images/cartempty.png"
           alt="emptycart"
         />
       </div>
