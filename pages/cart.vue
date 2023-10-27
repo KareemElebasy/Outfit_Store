@@ -106,11 +106,12 @@ const store = useCartStore();
 const config = useRuntimeConfig();
 const items = ref(null);
 const count_of_cart = ref(0);
+const { locale } = useI18n();
 await useAsyncData("cart", () => {
   $fetch(`${config.public.baseURL}cart`, {
     headers: {
       Accept: "application/json",
-      "Accept-Language": "en",
+      "Accept-Language": locale.value,
       "Content-type": "application/json",
       Authorization: `Bearer ${useCookie("token").value}`,
     },

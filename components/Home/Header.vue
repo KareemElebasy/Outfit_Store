@@ -113,13 +113,13 @@
 const switchLocalePath = useSwitchLocalePath();
 const localePath = useLocalePath();
 const config = useRuntimeConfig();
-
+const { locale } = useI18n();
 const count_of_cart = ref(0);
 await useAsyncData("cart", () => {
   $fetch(`${config.public.baseURL}cart`, {
     headers: {
       Accept: "application/json",
-      "Accept-Language": "en",
+      "Accept-Language": locale.value,
       "Content-type": "application/json",
       Authorization: `Bearer ${useCookie("token").value}`,
     },
@@ -132,7 +132,7 @@ await useAsyncData("wishlist", () => {
   $fetch(`${config.public.baseURL}favourites`, {
     headers: {
       Accept: "application/json",
-      "Accept-Language": "en",
+      "Accept-Language": locale.value,
       "Content-type": "application/json",
       Authorization: `Bearer${useCookie("token").value}`,
     },
