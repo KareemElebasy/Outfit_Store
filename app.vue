@@ -6,5 +6,4 @@
   </div>
 </template>
 <script setup>
-const layout = "custom";
 </script>

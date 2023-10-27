@@ -87,7 +87,7 @@
   <div class="md:hidden fixed bottom-0 left-0 z-50 w-full bg-white border-t-2 border-primary pt-3 pb-3">
     <div class="flex items-center justify-evenly  max-h-[10rem]">
       <NuxtLink :to="localePath('/')">
-        <img src="../../assets/images/download.WEBP" alt="profile-image" />
+        <img src="../../assets/images/download.webp" alt="profile-image" />
       </NuxtLink>
       <NuxtLink :to="localePath('/profile/orders')">
         <img src="../../assets/images/profile.png" alt="profile-image" />

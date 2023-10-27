@@ -1,9 +1,7 @@
 <template>
   <div>
     <HomeHeader />
-
     <slot />
-
     <HomeFooter />
   </div>
 </template>
