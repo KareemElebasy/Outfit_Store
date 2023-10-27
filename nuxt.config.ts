@@ -1,7 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  ssr:false,
   css: [
     "~/assets/css/main.css",
     "primevue/resources/themes/lara-light-blue/theme.css",
@@ -12,7 +11,7 @@ export default defineNuxtConfig({
     transpile: ["primevue", "vee-validate/dist/rules"],
   },
   plugins: [],
-  modules: ["nuxt-swiper", "@vee-validate/nuxt", "@pinia/nuxt",         [
+  modules: ["nuxt-swiper", "@vee-validate/nuxt", "@pinia/nuxt",[
     '@nuxtjs/i18n',
     {
         locales: [

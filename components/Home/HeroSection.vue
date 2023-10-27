@@ -19,7 +19,10 @@
       }"
     >
       <SwiperSlide v-for="(slide, index) in divided_slider.data" :key="index">
-        <div class="grid gap-2 md:grid-cols-2 mx-6">
+        <div class="grid gap-2 md:grid-cols-2 mx-6 pt-2">
+          <div>
+            <img :src="slide?.image" :alt="slide?.desc" />
+          </div>
           <div class="my-auto">
             <h2 class="md:text-[2rem] italic pb-[5px] pt-[5px] text-[1rem]">
               {{ slide?.name }}
@@ -35,9 +38,7 @@
               >Shop Now</NuxtLink
             >
           </div>
-          <div>
-            <img :src="slide?.image" :alt="slide?.desc" />
-          </div>
+
         </div>
       </SwiperSlide>
     </Swiper>

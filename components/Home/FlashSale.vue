@@ -63,7 +63,7 @@
           <button
             @click.prevent="
               () => {
-                store.addToCart(item.flash_sale_product.product_details[0]);
+                store.addToCart(item.flash_sale_product.product_details[0]).then(() => refreshAll())
               }
             "
           >
@@ -117,6 +117,16 @@
 const props = defineProps(["flash_sale"]);
 import { useCartStore } from "~/stores/cart";
 const store = useCartStore();
+const refreshing = ref(false);
+
+const refreshAll = async () => {
+  refreshing.value = true;
+  try {
+    await refreshNuxtData();
+  } finally {
+    refreshing.value = false;
+  }
+};
 </script>
 
 <style lang="scss" scoped></style>

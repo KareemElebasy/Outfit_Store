@@ -15,7 +15,7 @@ export default defineNuxtPlugin(app => {
     // // ========== Set Initial Direction Based On Initial Locale ========== //
   
   
-    const i18n = app.$i18n
+    // const i18n = app.$i18n
   
     if (app.$i18n.locale.value == "en") {
       document.body.setAttribute("dir", "ltr");

@@ -1,12 +1,4 @@
 <template>
-  <!-- <form>
-      <select v-model="locale">
-        <option value="en">en</option>
-        <option value="fr">fr</option>
-      </select>
-    </form>
-    <p>{{ $t("welcome") }}</p> -->
-
   <div v-if="loading">
     <Loading />
   </div>
@@ -25,24 +17,9 @@
 </template>
 
 <script setup>
-// const { locale, locales } = useI18n();
+const { locale } = useI18n();
+console.log(locale);
 // Refresh All Data
-const count_of_cart = ref(0);
-
-await useAsyncData("cart", () => {
-  $fetch(`${config.public.baseURL}cart`, {
-    headers: {
-      Accept: "application/json",
-      "Accept-Language": "en",
-      "Content-type": "application/json",
-      Authorization: `Bearer ${useCookie("token").value}`,
-    },
-  }).then((res) => {
-    count_of_cart.value = res.count_of_cart;
-    console.log
-    console.log(count_of_cart);
-  });
-});
 
 definePageMeta({
   layout: "default",
@@ -62,8 +39,8 @@ const banner = ref(null);
 await useAsyncData("homeData", () => {
   $fetch(`${config.public.baseURL}home`, {
     headers: {
-      // "Accept-language": useI18n(),
-      "Accept-language": "en",
+      "Accept-language": locale.value,
+      // "Accept-language": "en",
       Authorization: `Bearer${ useCookie("token").value }`,
     },
   }).then((res) => {
