@@ -18,7 +18,6 @@
 
 <script setup>
 const { locale } = useI18n();
-console.log(locale);
 // Refresh All Data
 
 definePageMeta({

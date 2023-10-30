@@ -10,64 +10,43 @@
         </h2>
         <!-- Form Login -->
         <div class="w-full max-w-xs">
-          <form
-            @submit.prevent="onSubmit"
-            class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
-          >
+          <form @submit.prevent="onSubmit" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
             <!-- Name -->
             <div class="mb-4">
               <input
                 class="shadow appearance-none rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                id="username"
-                type="text"
-                placeholder="Full Name "
-                v-model="formData.userName"
-                autocomplete="username"
-              />
+                id="username" type="text" placeholder="Full Name " v-model="formData.userName" autocomplete="username" />
             </div>
             <!-- Email -->
             <div class="mb-4">
               <input
                 class="shadow appearance-none rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                id="useremail"
-                type="email"
-                placeholder="Email"
-                v-model="formData.userEmail"
-              />
+                id="useremail" type="email" placeholder="Email" v-model="formData.userEmail" />
             </div>
             <!-- Phone -->
             <div class="mb-4">
               <input
                 class="shadow appearance-none rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                id="userphone"
-                type="text"
-                placeholder="Phone Number"
-                autocomplete="userphone"
-                v-model="formData.userPhone"
-              />
+                id="userphone" type="text" placeholder="Phone Number" autocomplete="userphone"
+                v-model="formData.userPhone" />
             </div>
             <!-- Password -->
             <div class="mb-6">
               <input
                 class="shadow appearance-none rounded w-full py-2 px-3 text-black mb-3 leading-tight focus:outline-none focus:shadow-outline"
-                id="password"
-                type="password"
-                placeholder="Password"
-                autocomplete="current-password"
-                v-model="formData.userPass"
-              />
+                id="password" type="password" placeholder="Password" autocomplete="current-password"
+                v-model="formData.userPass" />
             </div>
             <button
               class="w-full bg-primary text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-              type="submit"
-            >
+              type="submit">
               Register Now
             </button>
           </form>
         </div>
         <p class="text-center text-black text-[.8rem]">
           already have an account?
-          <NuxtLink class="text-primary" to="/login">Sign In</NuxtLink>
+          <NuxtLink class="text-primary" :to="localePath('/')">Sign In</NuxtLink>
         </p>
       </div>
     </div>
@@ -75,8 +54,11 @@
 </template>
 
 <script setup>
+const localePath = useLocalePath()
+
 definePageMeta({
   layout: "custom",
+  middleware: 'login'
 });
 // import { useForm } from "vee-validate";
 // import * as yup from "yup";

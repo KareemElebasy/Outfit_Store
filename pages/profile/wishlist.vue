@@ -12,7 +12,7 @@
       <h6 class="text-[.9rem] pb-2">let's do some shopping</h6>
       <nuxt-link
         class="bg-primary px-[.8rem] py-[.4rem] rounded-md text-white"
-        to="/"
+        :to="localPat" to="/"
         >Back To Home</nuxt-link
       >
     </div>
@@ -52,8 +52,7 @@
               />
             </button>
           </div>
-          {{ item.is_fav }}
-          <nuxt-link :to="`/products/${item.id}`">
+          <nuxt-link :to="localePath(`/products/${item.id}`)">
             <p class="text-gray font-[700] py-[1rem] text-[1rem]">
               {{ item.name }}
             </p>
@@ -69,8 +68,7 @@
             </div>
           </div>
         </div>
-        {{ item.is_fav }}
-        <nuxt-link :to="`/products/${item.id}`">
+        <nuxt-link :to="localePath(`/products/${item.id}`)">
           <p class="text-gray font-[700] py-[1rem] text-[1rem]">
             {{ item.name }}
           </p>
@@ -92,13 +90,15 @@
 
 <script setup>
 import { useCartStore } from "~/stores/cart";
+const localePath = useLocalePath();
+
 const store = useCartStore();
 const items = ref([]);
 await useAsyncData("wishlist", () => {
   $fetch(`${config.public.baseURL}favourites`, {
     headers: {
       Accept: "application/json",
-      "Accept-Language": "en",
+      "Accept-Language": locale.value,
       "Content-type": "application/json",
       Authorization: `Bearer${useCookie("token").value}`,
     },

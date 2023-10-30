@@ -1,5 +1,5 @@
 <template>
-  <div class="container mx-auto p-2">
+  <div class="container mx-auto mt-8 p-2">
     <h6 class="font-[600] text-[1.2rem] italic">You May Also Like</h6>
     <div class="grid gap-3 grid-cols-12 mx-6">
       <div
@@ -24,7 +24,7 @@
             <img src="../../assets/images/heart.png" alt="icon" />
           </button>
         </div>
-        <NuxtLink :to="`/products/${item.id}`">
+        <NuxtLink :to="localePath(`/products/${item.id}`)">
           <p class="text-gray font-[600] text-[1rem] pt-2">
             {{ item.product_details[0].name }}
           </p>
@@ -47,6 +47,8 @@
 <script setup>
 const props = defineProps(["productMayLiked"]);
 import { useCartStore } from "~/stores/cart";
+const localePath= useLocalePath()
+const { locale } = useI18n();
 
 const store = useCartStore();
 const config = useRuntimeConfig();
@@ -57,7 +59,7 @@ const { data: items } = await useFetch(
     headers: {
       Accept: "application/json",
       "Content-type": "application/json",
-      "Accept-language": "en",
+      "Accept-language": locale.value,
     },
   }
 );

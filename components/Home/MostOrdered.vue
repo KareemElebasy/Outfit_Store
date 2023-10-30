@@ -3,7 +3,7 @@
     <div class="container mx-auto mt-[5rem] mb-[2rem]">
       <div class="flex justify-between p-2">
         <h5 class="text-[2rem] font-[300] italic">Most Ordered</h5>
-        <nuxt-link to="/">View All</nuxt-link>
+        <nuxt-link  class="block w-fit ms-auto italic text-[1.2rem] text-primary" :to="localePath('/')">View All</nuxt-link>
       </div>
       <div class="grid sm:grid-cols-2 md:grid-cols-4 mx-6">
         <div
@@ -37,7 +37,7 @@
               />
             </button>
           </div>
-          <NuxtLink :to="`/products/${item.id}`">
+          <NuxtLink :to="localePath(`/products/${item.id}`)">
             <p class="text-gray font-[600] text-[1rem] pt-2">
               {{ item.product_details[0].name }}
             </p>
@@ -60,6 +60,7 @@
 
 <script setup>
 import { useCartStore } from "~/stores/cart";
+const localePath = useLocalePath()
 
 const props = defineProps(["most_orders"]);
 const store = useCartStore();

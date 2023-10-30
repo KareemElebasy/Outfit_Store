@@ -1,5 +1,6 @@
 export const useCartStore = defineStore("cart", () => {
   const config = useRuntimeConfig();
+  const { locale } = useI18n();
 
   const addToCart = async (data) => {
     try {
@@ -8,7 +9,7 @@ export const useCartStore = defineStore("cart", () => {
         headers: {
           Accept: "application/json",
           "Content-type": "application/json",
-          "Accept-language": "ar",
+          "Accept-Language": locale.value,
           Authorization: `Bearer ${useCookie("token").value} `,
           // Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -29,7 +30,7 @@ export const useCartStore = defineStore("cart", () => {
         headers: {
           Accept: "application/json",
           "Content-type": "application/json",
-          "Accept-language": "ar",
+          "Accept-Language": locale.value,
           Authorization: `Bearer ${useCookie("token").value} `,
         },
         body: {
@@ -49,7 +50,7 @@ export const useCartStore = defineStore("cart", () => {
         headers: {
           Accept: "application/json",
           "Content-type": "application/json",
-          "Accept-language": "en",
+          "Accept-Language": locale.value,
           guest_user: "tokenene",
           Authorization: `Bearer ${useCookie("token").value}`,
         },
@@ -68,7 +69,7 @@ export const useCartStore = defineStore("cart", () => {
         headers: {
           Accept: "application/json",
           "Content-type": "application/json",
-          "Accept-language": "en",
+          "Accept-Language": locale.value,
           guest_user: "tokenene",
           Authorization: `Bearer ${useCookie("token").value} `,
         },
@@ -86,7 +87,7 @@ export const useCartStore = defineStore("cart", () => {
         headers: {
           Accept: "application/json",
           "Content-type": "application/json",
-          "Accept-language": "en",
+          "Accept-Language": locale.value,
           Authorization: `Bearer${useCookie("token").value}`,
         },
         body: {

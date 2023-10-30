@@ -41,6 +41,7 @@
 
 <script setup>
 const config = useRuntimeConfig();
+const { locale } = useI18n();
 
 const wallet_transations = await $fetch(
   `${config.public.baseURL}wallet_transations`,
@@ -48,7 +49,7 @@ const wallet_transations = await $fetch(
     method: "GET",
     headers: {
       Accept: "application/json",
-      "Accept-Language": "en",
+      "Accept-Language": locale.value,
       "Content-type": "application/json",
       Authorization: `Bearer ${useCookie("token").value} `,
     },

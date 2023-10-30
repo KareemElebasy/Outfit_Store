@@ -1,5 +1,6 @@
 export const useUserAuthStore = defineStore("userAuth", () => {
   const config = useRuntimeConfig();
+  
   // SignUp Constants
   const deviceToken = useCookie("token", {
     maxAge: 60 * 60,
@@ -15,12 +16,13 @@ export const useUserAuthStore = defineStore("userAuth", () => {
   // console.log(userInformation);
   // signUp
   const signUp = async (data) => {
+    const { locale } = useI18n();
     try {
       const res = await $fetch(`${config.public.baseURL}register`, {
         method: "post",
         headers: {
           "Content-type": "application/json",
-          "Accept-language": "ar",
+          "Accept-Language": locale.value,
         },
         body: {
           fullname: data.value.userName,
@@ -43,11 +45,12 @@ export const useUserAuthStore = defineStore("userAuth", () => {
 
   // verify User Code
   const verifyCode = async () => {
+
     try {
       const res = await useFetch(`${config.public.baseURL}verify`, {
         method: "post",
         headers: {
-          "Accept-language": "en",
+          "Accept-Language": locale.value,
         },
         body: {
           phone: devicePhone.value,

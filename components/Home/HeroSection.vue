@@ -12,7 +12,7 @@
         prev: {
           shadow: false,
           translate: ['100%', 0, 0],
-        },
+        }, 
         next: {
           translate: ['100%', 0, 0],
         },

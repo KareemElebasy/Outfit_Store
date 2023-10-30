@@ -13,7 +13,7 @@
         </button>
         <nuxt-link
           class="text-[14px] mx-1 px-2 py-2 rounded-md bg-white text-black"
-          to="/"
+          :to="localePath('/')"
           >HOME</nuxt-link
         >
       </div>
@@ -39,6 +39,9 @@
 <script setup>
 const config = useRuntimeConfig();
 const subType = ref("MAN");
+const localePath = useLocalePath()
+const { locale } = useI18n();
+
 const currentCategory = ref(null);
 const subTypeData = ref(null);
 // Get Category Bar
@@ -47,7 +50,7 @@ const res = await $fetch(`${config.public.baseURL}category_layers`, {
   headers: {
     Accept: "application/json",
     "Content-type": "application/json",
-    "Accept-language": "en",
+    "Accept-language": locale.value,
   },
 });
 const category_Types = ref(res.data);

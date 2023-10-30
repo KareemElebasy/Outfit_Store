@@ -58,19 +58,20 @@
 import { useUserAuthStore } from "~/stores/userAuth";
 const store = useUserAuthStore();
 const config = useRuntimeConfig();
+const { locale } = useI18n();
+
 
 const ordersRes = await $fetch(`${config.public.baseURL}order`, {
   method: "GET",
   headers: {
     Accept: "application/json",
-    "Accept-Language": "en",
+    "Accept-Language": locale.value,
     "Content-type": "application/json",
     Authorization: `Bearer ${useCookie("token").value} `,
   },
 });
 const orderItems = ref(ordersRes.available_status);
-console.log("Orders");
-console.log(orderItems);
+
 // POST DATA ORDERS
 // const res = await $fetch(`${config.public.baseURL}order`, {
 //   method: "POST",

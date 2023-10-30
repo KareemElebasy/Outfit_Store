@@ -33,7 +33,7 @@
             </div>
             <NuxtLink
               class="block align-baseline font-bold text-[.7rem] text-blue-500 mb-5"
-              to="/signup"
+              :to="localePath('/signup')"
             >
               Forgot Password?
             </NuxtLink>
@@ -47,7 +47,7 @@
         </div>
         <p class="text-center text-gray-light text-[.8rem]">
           Not A Member ?
-          <NuxtLink class="text-primary" to="/signup">Join Now</NuxtLink>
+          <NuxtLink class="text-primary" :to="localePath('/signup')">Join Now</NuxtLink>
         </p>
       </div>
     </div>
@@ -73,8 +73,9 @@
 // });
 definePageMeta({
   layout: "custom",
+  middleware:'login'
 });
-
+const localePath = useLocalePath();
 
 const userData = ref({
   phone: "",

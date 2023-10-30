@@ -83,11 +83,12 @@
 <script setup>
 const config = useRuntimeConfig();
 const items = ref(null);
+const { locale } = useI18n();
 
 await useAsyncData("FlashSaleItems", () => {
   $fetch(`${config.public.baseURL}flash_sale?type=now`, {
     headers: {
-      "Accept-language": "en",
+      "Accept-language": locale.value,
     },
   })
     .then((res) => (items.value = res.data))

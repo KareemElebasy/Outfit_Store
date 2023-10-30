@@ -380,12 +380,14 @@ const itemMediam = ref(null);
 const itemLarge = ref(null);
 const itemXlarge = ref(null);
 const itemDetailActive = ref(itemSmall);
+const { locale } = useI18n();
+
 const res = await $fetch(`${config.public.baseURL}products/${id}`, {
   method: "GET",
   headers: {
     Accept: "application/json",
     "Content-type": "application/json",
-    "Accept-language": "en",
+    "Accept-language": locale.value,
   },
 });
 

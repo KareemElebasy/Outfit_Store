@@ -10,69 +10,46 @@ export default defineNuxtConfig({
   build: {
     transpile: ["primevue", "vee-validate/dist/rules"],
   },
-  plugins: [],
-  modules: ["nuxt-swiper", "@vee-validate/nuxt", "@pinia/nuxt",[
-    '@nuxtjs/i18n',
-    {
+  plugins: ["~/plugins/i18n.client.ts"],
+  modules: [
+    "nuxt-swiper",
+    "@vee-validate/nuxt",
+    "@pinia/nuxt",
+    [
+      "@nuxtjs/i18n",
+      {
         locales: [
-            {
-                name: 'English',
-                code: 'en',
-                iso: 'en-US',
-                file: 'en.json',
-                dir: 'ltr',
-            },
-            {
-                name: 'عربي ',
-                code: 'ar',
-                iso: 'ar-AR',
-                file: 'ar.json',
-                dir: 'rtl',
-            },
+          {
+            name: "English",
+            code: "en",
+            iso: "en-US",
+            file: "en.json",
+            dir: "ltr",
+          },
+          {
+            name: "عربي ",
+            code: "ar",
+            iso: "ar-AR",
+            file: "ar.json",
+            dir: "rtl",
+          },
         ],
         lazy: true,
-        langDir: 'locales/',
-        defaultLocale: 'en',
+        langDir: "locales/",
+        defaultLocale: "en",
+        // strategy: "prefix_except_default",
         // detectBrowserLanguage: {
-        //     useCookie: true,
-        //     // cookieKey: 'hogag_website_lang',
-        //     alwaysRedirect: true,
-        //     fallbackLocale: 'en'
+        //   useCookie: true,
+        //   alwaysRedirect: true,
+        //   fallbackLocale: "en",
         // },
         vueI18nLoader: true,
-    }
-],],
+      },
+    ],
+  ],
   pinia: {
     autoImports: ["defineStore"],
   },
-
-  // i18n Settings Doesn't work
-
-  // i18n: {
-  //   lazy: true,
-  //   langDir: "locales/",
-  //   strategy: "prefix_except_default",
-  //   locales: [
-  //     {
-  //       code: "en-US",
-  //       iso: "en-US",
-  //       name: "English(US)",
-  //       file: "en-US.json",
-  //     },
-  //     {
-  //       code: "ar-EG",
-  //       iso: "ar-EG",
-  //       name: "Arabic(EG)",
-  //       file: "ar.json",
-  //     },
-  //   ],
-  //   defaultLocale: "en-US",
-  //   detectBrowserLanguage: false,
-  //   vueI18n: {
-  //     runtimeOnly: false,
-  //     fallbackLocale: "en-US",
-  //   },
-  // },
   postcss: {
     plugins: {
       tailwindcss: {},

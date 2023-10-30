@@ -1,5 +1,6 @@
 <template>
   <div class="hidden md:block">
+    <!-- topNav lg Devices -->
     <nav class="container bg-white h-[60px] flex items-center justify-between mx-auto px-[12px]">
       <div>
         <nuxt-link :to="switchLocalePath($i18n.locale == 'ar' ? 'en' : 'ar')" class="text-[#9F8B58]">
@@ -32,7 +33,8 @@
     </nav>
     <ProductsCategoryBar />
   </div>
-  <!-- Small Devices -->
+
+  <!--top nav Small Devives Small Devices -->
   <nav
     class="container relative bg-white h-[60px] flex items-center justify-between mx-auto px-[12px] md:hidden border-b-2 border-primary">
     <div>
@@ -50,40 +52,37 @@
     </div>
     <!-- SideBar -->
     <div>
-      <button class="relative group">
+      <button @click="toggleSide" class="relative group">
         <div
-          class="relative flex overflow-hidden items-center justify-center rounded-full w-[50px] h-[50px] transform transition-all bg-slate-700 ring-0 ring-gray-300 ">
+          class="relative flex overflow-hidden items-center justify-center rounded-full w-[50px] h-[50px] transform transition-all bg-slate-700 ring-0 ring-gray-300 hover:ring-8 group-focus:ring-4 ring-opacity-30 duration-200 shadow-md">
           <div
-            class="flex flex-col justify-between w-[20px] h-[20px] transform transition-all duration-300 origin-center overflow-hidden group-focus:translate-x-1.5">
+            class="flex flex-col justify-between w-[20px] h-[20px] transform transition-all duration-300 origin-center overflow-hidden">
             <div
-              class="bg-primary h-[2px] w-7 transform transition-all duration-300 origin-left group-focus:rotate-[42deg] group-focus:w-2/3 delay-150">
+              class="bg-primary h-[2px] w-7 transform transition-all duration-300 origin-left group-focus:rotate-[42deg]">
             </div>
-            <div class="bg-primary h-[2px] w-7 rounded transform transition-all duration-300 group-focus:translate-x-10">
+            <div class="bg-primary h-[2px] w-1/2 rounded transform transition-all duration-300 group-focus:-translate-x-10">
             </div>
             <div
-              class="bg-primary h-[2px] w-7 transform transition-all duration-300 origin-left group-focus:-rotate-[42deg] group-focus:w-2/3 delay-150">
+              class="bg-primary h-[2px] w-7 transform transition-all duration-300 origin-left group-focus:-rotate-[42deg]">
             </div>
           </div>
         </div>
       </button>
-    </div>
-    <div class=" hidden absolute bg-primary-light z-40  w-full h-screen top-11">
-      <ul class="text-center">
-        <li>
-          <nuxt-link :to=localePath()>Home</nuxt-link>
-        </li>
-        <li>
-          <nuxt-link :to=localePath()>Home</nuxt-link>
-        </li>
-        <li>
-          <nuxt-link :to=localePath()>Home</nuxt-link>
-        </li>
-        <li>
-          <nuxt-link :to=localePath()>Home</nuxt-link>
-        </li>
-      </ul>
+      <!-- sidebar Menu -->
+      <div v-if="sideIsOpen" class="absolute bg-primary-light left-0 top-12 z-40 w-[100vw] h-screen hidden">
+        <ul class="text-center">
+          <li>
+            <nuxt-link :to="localePath('/')">Home</nuxt-link>
+          </li>
+          <li>
+            <nuxt-link :to="localePath('/about')">About Us</nuxt-link>
+          </li>
+
+        </ul>
+      </div>
     </div>
   </nav>
+  <!-- bottom Nav Small Devices -->
   <div class="md:hidden fixed bottom-0 left-0 z-50 w-full bg-white border-t-2 border-primary pt-3 pb-3">
     <div class="flex items-center justify-evenly  max-h-[10rem]">
       <NuxtLink :to="localePath('/')">
@@ -115,6 +114,17 @@ const localePath = useLocalePath();
 const config = useRuntimeConfig();
 const { locale } = useI18n();
 const count_of_cart = ref(0);
+const sideIsOpen = ref(false)
+const route = useRoute();
+watch(
+  () => route.path,
+  () => {
+    sideIsOpen.value = false
+  }
+);
+function toggleSide() {
+  sideIsOpen.value = !sideIsOpen.value
+}
 await useAsyncData("cart", () => {
   $fetch(`${config.public.baseURL}cart`, {
     headers: {
