@@ -12,7 +12,7 @@
       <h6 class="text-[.9rem] pb-2">let's do some shopping</h6>
       <nuxt-link
         class="bg-primary px-[.8rem] py-[.4rem] rounded-md text-white"
-        :to="localPat" to="/"
+        :to="localePath('/')"
         >Back To Home</nuxt-link
       >
     </div>

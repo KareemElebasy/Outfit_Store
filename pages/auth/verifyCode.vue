@@ -2,11 +2,12 @@
   <div class="container mx-auto mt-5 mb-5 min-h-[50vh]">
     <div class="flex items-center justify-center">
       <div class="">
-        <h6 class="text-center pb-2">OutFit</h6>
-        <h5>Confirmation Code</h5>
-        <form @submit.prevent="onVerify">
+        <h6 class="text-center text-primary pb-2">OutFit</h6>
+        <h5 class="text-primary">Confirmation Code</h5>
+        <h5 class="text-primary">Please Enter On Verify Button </h5>
+        <form @submit.prevent="onSubmit">
           <input class="block bg-gray" type="number" />
-          <button class="pt-3" type="submit">Verfiy</button>
+          <button class=" bg-primary text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">Verfiy</button>
         </form>
       </div>
     </div>
@@ -17,14 +18,26 @@
 definePageMeta({
   layout: "custom",
 });
-
-// Use Pinia Store
-import { useUserAuthStore } from "../stores/userAuth";
-const store = useUserAuthStore();
-const onVerify = async () => {
-  await store.verifyCode();
-};
-console.log(store);
+const config = useRuntimeConfig()
+const { locale } = useI18n();
+const onSubmit = async () => {
+  $fetch(`${config.public.baseURL}verify`, {
+    method: "POST",
+    headers: {
+      "Content-type": "application/json",
+      "Accept-Language": locale.value,
+    },
+    body: {
+      phone: useCookie('phone').value,
+      code: "1111",
+      country_id: "2",
+    },
+  }).then(() => {
+    navigateTo("/login", { replace: true });
+  }).catch((err) => {
+    console.log(err);
+  })
+}
 </script>
 
 <style lang="scss" scoped></style>

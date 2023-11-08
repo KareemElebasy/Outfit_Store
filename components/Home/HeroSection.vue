@@ -33,12 +33,11 @@
               {{ slide?.desc }}
             </p>
             <NuxtLink
-              class="block w-fit ms-auto italic text-[1.2rem] text-primary"
+              class=" w-fit ms-auto italic text-[1.2rem] text-primary"
               to="/products"
               >Shop Now</NuxtLink
             >
           </div>
-
         </div>
       </SwiperSlide>
     </Swiper>

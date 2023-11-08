@@ -12,7 +12,9 @@
       </p>
     </div>
     <div class="flex justify-center items-center mt-10 mb-10">
-      <img src="../assets/images/logo.png" alt="logo" />
+      <nuxt-link :to="localePath('/')">
+        <img src="../assets/images/logo.png" alt="logo" />
+      </nuxt-link>
     </div>
     <slot />
 
@@ -20,6 +22,8 @@
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+const localePath = useLocalePath()
+</script>
 
 <style lang="scss" scoped></style>

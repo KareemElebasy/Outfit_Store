@@ -60,7 +60,8 @@
             <div
               class="bg-primary h-[2px] w-7 transform transition-all duration-300 origin-left group-focus:rotate-[42deg]">
             </div>
-            <div class="bg-primary h-[2px] w-1/2 rounded transform transition-all duration-300 group-focus:-translate-x-10">
+            <div
+              class="bg-primary h-[2px] w-1/2 rounded transform transition-all duration-300 group-focus:-translate-x-10">
             </div>
             <div
               class="bg-primary h-[2px] w-7 transform transition-all duration-300 origin-left group-focus:-rotate-[42deg]">
@@ -69,16 +70,15 @@
         </div>
       </button>
       <!-- sidebar Menu -->
-      <div v-if="sideIsOpen" class="absolute bg-primary-light left-0 top-12 z-40 w-[100vw] h-screen hidden">
-        <ul class="text-center">
-          <li>
-            <nuxt-link :to="localePath('/')">Home</nuxt-link>
-          </li>
-          <li>
-            <nuxt-link :to="localePath('/about')">About Us</nuxt-link>
-          </li>
-
-        </ul>
+      <div v-if="sideIsOpen" class=" fixed top-16 h-screen w-screen duration-300 z-40 start-0">
+        <div class="p-3 bg-white w-[100%] h-[100vh]">
+          <ul class="">
+            <li><nuxt-link class="block mb-3 border rounded-xl p-3" :to="localePath('/')">Home</nuxt-link></li>
+            <li><nuxt-link class="block mb-3 border rounded-xl p-3" :to="localePath('/about')">About us</nuxt-link></li>
+            <li><nuxt-link class="block mb-3 border rounded-xl p-3" :to="localePath('/contact')">Contact us</nuxt-link>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </nav>
@@ -116,16 +116,17 @@ const { locale } = useI18n();
 const count_of_cart = ref(0);
 const sideIsOpen = ref(false)
 const route = useRoute();
+function toggleSide() {
+  sideIsOpen.value = !sideIsOpen.value
+}
 watch(
   () => route.path,
   () => {
     sideIsOpen.value = false
   }
 );
-function toggleSide() {
-  sideIsOpen.value = !sideIsOpen.value
-}
-await useAsyncData("cart", () => {
+if(useCookie('token').value){
+  await useAsyncData("cart", () => {
   $fetch(`${config.public.baseURL}cart`, {
     headers: {
       Accept: "application/json",
@@ -137,8 +138,10 @@ await useAsyncData("cart", () => {
     count_of_cart.value = res.count_of_cart;
   });
 });
+}
 const fav_length = ref(0)
-await useAsyncData("wishlist", () => {
+if(useCookie('token').value){
+  await useAsyncData("wishlist", () => {
   $fetch(`${config.public.baseURL}favourites`, {
     headers: {
       Accept: "application/json",
@@ -148,6 +151,7 @@ await useAsyncData("wishlist", () => {
     },
   }).then((res) => (fav_length.value = res.data.length));
 });
+}
 console.log(fav_length);
 </script>
 

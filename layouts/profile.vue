@@ -1,5 +1,5 @@
 <template>
-  <div class="container mx-auto">
+  <div v-if="profileUserData" class="container mx-auto">
     <div class="grid md:grid-cols-12 gap-5">
       <div class="col-span-4 p-2">
         <!-- Main Data Component in Profile      -->
@@ -15,25 +15,32 @@
 
 <script setup>
 const config = useRuntimeConfig();
+const locale = useI18n()
+const profileUserData = ref(null)
 
-// const { data: items } = await useFetch(`${config.public.baseURL}profile`, {
-//   method: "get",
-//   headers: {
-//     Accept: "application/json",
-//     "Content-type": "application/json",
-//     "Accept-language": "ar",
-//     Authorization: useCookie("token").value,
-//   },
-// });
-// const profileUserData = reactive(items.value.data);
-// console.log(profileUserData);
+await useAsyncData('userData',()=>{
+  $fetch(`${config.public.baseURL}profile`, {
+        method: "get",
+        headers: {
+          Accept: "application/json",
+          "Content-type": "application/json",
+          "Accept-language": locale.value,
+          Authorization: `Bearer ${useCookie('token').value}`,
+        },
+      }).then((res)=>{
+        profileUserData.value = res.data;
+      }).catch((err)=>{
+        console.log(err);
+      });
+      
+    }
+)
 
-import { useUserAuthStore } from "../stores/userAuth";
-
-const store = useUserAuthStore();
-await store.fetchUserData();
-const profileUserData = store.userInformation.value;
-console.log(store.userInformation);
+// import { useUserAuthStore } from "../stores/userAuth";
+// const store = useUserAuthStore();
+// await store.fetchUserData();
+// const profileUserData = store.userInformation.value;
+// console.log(store.userInformation);
 </script>
 
 <style lang="scss" scoped></style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="container mx-auto mt-8 p-2">
+  <div v-if="productMayLiked" class="container mx-auto mt-8 p-2">
     <h6 class="font-[600] text-[1.2rem] italic">You May Also Like</h6>
     <div class="grid gap-3 grid-cols-12 mx-6">
       <div
@@ -63,7 +63,7 @@ const { data: items } = await useFetch(
     },
   }
 );
-const productMayLiked = ref(items.value.data);
+const productMayLiked = ref(items?.value?.data);
 </script>
 
 <style lang="scss" scoped></style>

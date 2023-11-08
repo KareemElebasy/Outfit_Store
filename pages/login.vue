@@ -8,39 +8,29 @@
         <h2 class="italic text-[1.3rem] pb-5 text-center">Welcome Back !</h2>
         <!-- Form Login -->
         <div class="w-full max-w-xs">
-          <form
-            @submit.prevent="onSubmit"
-            class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
-          >
+          <form @submit="onSubmit" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
             <div class="mb-4">
               <input
                 class="shadow appearance-none rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                id="username"
-                type="text"
-                placeholder="Email Or Mobile Number "
-                v-model="userData.phone"
-                autocomplete="username"
-              />
-            </div>
+                id="userphone" type="text" placeholder="Enter Your Mobile Number   " v-bind="phone"
+                autocomplete="userphone" />
+                
+              </div>
+              <p class="text-red-700 py-1 text-center font-bold text-[.8rem]">{{ errors.phone }}</p>
             <div class="mb-6">
               <input
                 class="shadow appearance-none rounded w-full py-2 px-3 text-black mb-3 leading-tight focus:outline-none focus:shadow-outline"
-                id="password"
-                type="password"
-                placeholder="Password"
-                v-model="userData.password"
-              />
+                id="password" type="password" placeholder="Password" v-bind="password" />
             </div>
-            <NuxtLink
-              class="block align-baseline font-bold text-[.7rem] text-blue-500 mb-5"
-              :to="localePath('/signup')"
-            >
+            <p class="text-red-700 py-1 text-center font-bold text-[.8rem]">{{ errors.password }}</p>
+
+            <p v-if="errMsg" class="text-red-700 py-1 text-center font-bold text-[.8rem]">{{ errMsg }}</p>
+            <NuxtLink class="block align-baseline font-bold text-[.7rem] text-blue-500 mb-5" :to="localePath('/signup')">
               Forgot Password?
             </NuxtLink>
             <button
               class="w-full bg-primary text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-              type="submit"
-            >
+              type="submit">
               Sign In
             </button>
           </form>
@@ -55,41 +45,48 @@
 </template>
 
 <script setup>
-// import { useForm } from "vee-validate";
-// import * as yup from "yup";
-
-// const schema = yup.object({
-//   email: yup.string().email().required(),
-//   password: yup.string().min(6).max(8).required(),
-// });
-// const { defineInputBinds, errors, handleSubmit } = useForm({
-//   validationSchema: schema,
-// });
-// const email = defineInputBinds("email");
-// const password = defineInputBinds("password");
-// const onSubmitVaidation = handleSubmit((values) => {
-//   // Submit to API
-//   console.log(values);
-// });
+import { useForm } from "vee-validate";
+import * as yup from "yup";
 definePageMeta({
   layout: "custom",
-  middleware:'login'
+  middleware: 'login'
 });
 const localePath = useLocalePath();
-
-const userData = ref({
-  phone: "",
-  password: null,
+const { locale } = useI18n();
+const errMsg = ref(null)
+const config = useRuntimeConfig()
+const schema = yup.object({
+  phone: yup.string().min(10).max(10).required(),
+  password: yup.string().min(6).max(10).required(),
 });
-
-// Using Pinia Store
-import { useUserAuthStore } from "../stores/userAuth";
-const store = useUserAuthStore();
-const onSubmit = async () => {
-  await store.signIn(userData);
-  await navigateTo("/", { replace: true });
-};
-console.log(store);
+const { defineInputBinds, errors, handleSubmit } = useForm({
+  validationSchema: schema,
+});
+const phone = defineInputBinds("phone");
+const password = defineInputBinds("password");
+const onSubmit = handleSubmit((values) => {
+  console.log(values);
+  $fetch(`${config.public.baseURL}login`, {
+    method: "POST",
+    headers: {
+      "Content-type": "application/json",
+      "Accept-Language": locale.value,
+    },
+    body: {
+      country_id: 2,
+      phone: values.phone,
+      password: values.password,
+      type: "ios",
+      device_token: "desktop",
+    }
+  }).then((res) => {
+    useCookie("token").value = res.data.token;
+    navigateTo("/", { replace: true });
+  }).catch((err) => {
+    console.log(err);
+    errMsg.value = err?.response?._data?.message
+  })
+});
 </script>
 
 <style lang="scss" scoped></style>

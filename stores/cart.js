@@ -16,13 +16,13 @@ export const useCartStore = defineStore("cart", () => {
         body: {
           product_detail_id: data.id,
           quantity: 1,
+          guest_token:"guest_token"
         },
       });
     } catch (error) {
       console.log(error);
     }
   };
-
   const updateCount = async (id, count) => {
     try {
       const req = await $fetch(`${config.public.baseURL}cart/update_count`, {

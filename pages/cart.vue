@@ -93,7 +93,7 @@
       </div>
     </div>
     <button @click.prevent="() => {
-      store.deleteAllCartItems().then(() => refreshAll());
+      store.deleteAllCartItems().then(() =>refreshNuxtData());
     }
       " class="bg-primary px-[.8rem] py-[.4rem] rounded-md text-white mt-2 mx-auto">
       Delete All Items
