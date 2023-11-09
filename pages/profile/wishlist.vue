@@ -1,5 +1,5 @@
 <template>
-  <div v-if="items.length === 0" class="container mx-auto p-2">
+  <div v-if="items" class="container mx-auto p-2">
     <div class="flex flex-col justify-between items-center pt-5 pb-5">
       <div>
         <img
@@ -93,7 +93,7 @@ import { useCartStore } from "~/stores/cart";
 const localePath = useLocalePath();
 
 const store = useCartStore();
-const items = ref([]);
+const items = ref(null);
 await useAsyncData("wishlist", () => {
   $fetch(`${config.public.baseURL}favourites`, {
     headers: {

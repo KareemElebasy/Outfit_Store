@@ -1,5 +1,5 @@
 <template>
-  <div class="container mx-auto bg-white " v-if="divided_slider">
+  <div class="container mx-auto bg-white" v-if="divided_slider">
     <Swiper
       :modules="[SwiperAutoplay, SwiperEffectCreative]"
       :slides-per-view="1"
@@ -12,7 +12,7 @@
         prev: {
           shadow: false,
           translate: ['100%', 0, 0],
-        }, 
+        },
         next: {
           translate: ['100%', 0, 0],
         },
@@ -32,11 +32,7 @@
             >
               {{ slide?.desc }}
             </p>
-            <NuxtLink
-              class=" w-fit ms-auto italic text-[1.2rem] text-primary"
-              to="/products"
-              >Shop Now</NuxtLink
-            >
+           
           </div>
         </div>
       </SwiperSlide>

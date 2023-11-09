@@ -80,7 +80,7 @@
                 </td>
                 <td class="px-6 py-4">
                   <button @click.prevent="() => {
-                    store.deleteCartItem(item.id).then(() => refreshAll());
+                    store.deleteCartItem(item.id).then(() => refreshNuxtData());
                   }
                     " class="font-medium text-red-600 dark:text-red-500 hover:underline">
                     Remove
@@ -123,15 +123,6 @@ await useAsyncData("cart", () => {
     count_of_cart.value = res.count_of_cart;
   });
 });
-const refreshing = ref(false);
-const refreshAll = async () => {
-  refreshing.value = true;
-  try {
-    await refreshNuxtData();
-  } finally {
-    refreshing.value = false;
-  }
-};
 </script>
 
 <style lang="scss" scoped></style>

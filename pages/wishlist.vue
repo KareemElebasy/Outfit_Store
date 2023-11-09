@@ -84,7 +84,6 @@ await useAsyncData("wishlist", () => {
     },
   }).then((res) => (items.value = res.data));
 });
-
 </script>
 
 <style lang="scss" scoped></style>

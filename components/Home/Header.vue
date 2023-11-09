@@ -33,7 +33,6 @@
     </nav>
     <ProductsCategoryBar />
   </div>
-
   <!--top nav Small Devives Small Devices -->
   <nav
     class="container relative bg-white h-[60px] flex items-center justify-between mx-auto px-[12px] md:hidden border-b-2 border-primary">

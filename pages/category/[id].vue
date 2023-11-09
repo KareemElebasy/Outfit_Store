@@ -1,6 +1,7 @@
 <template>
-  <div class="container mx-auto mt-10 p-10" v-if="categoryItems">
+  <div class="container mx-auto mt-10 p-8" v-if="categoryItems">
     <div class="grid grid-cols-1 md:grid-cols-3">
+
       <div class="hidden md:block md:col-span-1">
         <FiltersSection
           :filtersFeatures="filtersFeatures"
@@ -14,6 +15,7 @@
           "
         />
       </div>
+
       <div class="col-span-1 md:col-span-2">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div
@@ -74,26 +76,27 @@
 import { useCartStore } from "~/stores/cart";
 
 const config = useRuntimeConfig();
-// const { id } = useRoute().params;
 const { locale } = useI18n();
+const localePath = useLocalePath();
 const store = useCartStore();
 const route = useRoute();
-const categoryItems = ref(null);
 const filtersFeatures = ref(null);
-
+const categoryItems = ref(null);
 const sort_Option = ref([]);
 const color_id = ref([]);
 const size = ref([]);
 
 const { data, refresh } = await useAsyncData("categoryItems", () => {
-  $fetch(`${config.public.baseURL}products`, {
+  $fetch(`${config.public.baseURL}products?category_id=${route.params.id}`, {
     headers: {
       Accept: "application/json",
       "Accept-Language": locale.value,
       "Content-type": "application/json",
     },
-    params: {
-      category_id: route.query.category_id,
+    query: {
+      color_id: color_id.value,
+      sorted: sort_Option.value,
+      // size_ids: size.value,
     },
   }).then((res) => {
     console.log(res);
@@ -102,16 +105,13 @@ const { data, refresh } = await useAsyncData("categoryItems", () => {
 });
 
 await useAsyncData("filtersFeatures", () => {
-  $fetch(
-    `${config.public.baseURL}category/${route.query.category_id}/features`,
-    {
-      headers: {
-        Accept: "application/json",
-        "Accept-Language": locale.value,
-        "Content-type": "application/json",
-      },
-    }
-  ).then((res) => {
+  $fetch(`${config.public.baseURL}category/${route.params.id}/features`, {
+    headers: {
+      Accept: "application/json",
+      "Accept-Language": locale.value,
+      "Content-type": "application/json",
+    },
+  }).then((res) => {
     console.log(res);
     filtersFeatures.value = res?.data;
   });
