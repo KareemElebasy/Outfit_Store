@@ -1,7 +1,6 @@
 <template>
   <div class="container mx-auto mt-10 p-8" v-if="categoryItems">
     <div class="grid grid-cols-1 md:grid-cols-3">
-
       <div class="hidden md:block md:col-span-1">
         <FiltersSection
           :filtersFeatures="filtersFeatures"
@@ -87,13 +86,14 @@ const color_id = ref([]);
 const size = ref([]);
 
 const { data, refresh } = await useAsyncData("categoryItems", () => {
+  console.log(color_id.value)
   $fetch(`${config.public.baseURL}products?category_id=${route.params.id}`, {
     headers: {
       Accept: "application/json",
       "Accept-Language": locale.value,
       "Content-type": "application/json",
     },
-    query: {
+    params: {
       color_id: color_id.value,
       sorted: sort_Option.value,
       // size_ids: size.value,
@@ -103,6 +103,7 @@ const { data, refresh } = await useAsyncData("categoryItems", () => {
     categoryItems.value = res?.data;
   });
 });
+
 
 await useAsyncData("filtersFeatures", () => {
   $fetch(`${config.public.baseURL}category/${route.params.id}/features`, {

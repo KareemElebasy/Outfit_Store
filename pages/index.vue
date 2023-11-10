@@ -42,6 +42,9 @@ await useAsyncData("homeData", () => {
       // "Accept-language": "en",
       Authorization: `Bearer${ useCookie("token").value }`,
     },
+    params :{
+      guest_token: `Bearer ${useCookie('guest_token').value}`
+    }
   }).then((res) => {
     const data = res.data;
     console.log(data);

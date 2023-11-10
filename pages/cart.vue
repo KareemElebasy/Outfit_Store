@@ -110,6 +110,7 @@ const localePath = useLocalePath()
 const items = ref(null);
 const count_of_cart = ref(0);
 const { locale } = useI18n();
+
 await useAsyncData("cart", () => {
   $fetch(`${config.public.baseURL}cart`, {
     headers: {
@@ -117,8 +118,12 @@ await useAsyncData("cart", () => {
       "Accept-Language": locale.value,
       "Content-type": "application/json",
       Authorization: `Bearer ${useCookie("token").value}`,
-    },
+    },  
+    params :{
+      "guest_token": `Bearer ${useCookie('guest_token').value}`
+    }
   }).then((res) => {
+    console.log(res);
     items.value = res?.data?.items;
     count_of_cart.value = res.count_of_cart;
   });

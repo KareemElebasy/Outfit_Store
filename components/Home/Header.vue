@@ -124,7 +124,7 @@ watch(
     sideIsOpen.value = false
   }
 );
-if(useCookie('token').value){
+if(useCookie('token').value || useCookie('guest_token').value ){
   await useAsyncData("cart", () => {
   $fetch(`${config.public.baseURL}cart`, {
     headers: {
@@ -133,13 +133,16 @@ if(useCookie('token').value){
       "Content-type": "application/json",
       Authorization: `Bearer ${useCookie("token").value}`,
     },
+    params :{
+      guest_token: `Bearer ${useCookie('guest_token').value}`
+    }
   }).then((res) => {
     count_of_cart.value = res.count_of_cart;
   });
 });
 }
 const fav_length = ref(0)
-if(useCookie('token').value){
+if(useCookie('token').value || useCookie('guest_token').value ){
   await useAsyncData("wishlist", () => {
   $fetch(`${config.public.baseURL}favourites`, {
     headers: {
@@ -147,7 +150,10 @@ if(useCookie('token').value){
       "Accept-Language": locale.value,
       "Content-type": "application/json",
       Authorization: `Bearer${useCookie("token").value}`,
-    },
+   },
+   params :{
+      guest_token: `Bearer ${useCookie('guest_token').value}`
+    }
   }).then((res) => (fav_length.value = res.data.length));
 });
 }

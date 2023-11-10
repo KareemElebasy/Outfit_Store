@@ -32,7 +32,8 @@ const onSubmit = async () => {
       code: "1111",
       country_id: "2",
     },
-  }).then(() => {
+  }).then((res) => {
+    const data = res?.data
     navigateTo("/login", { replace: true });
   }).catch((err) => {
     console.log(err);

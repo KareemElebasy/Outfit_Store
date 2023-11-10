@@ -32,7 +32,6 @@
             >
               {{ slide?.desc }}
             </p>
-           
           </div>
         </div>
       </SwiperSlide>

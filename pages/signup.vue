@@ -99,6 +99,7 @@ const onSubmit = handleSubmit(values => {
           email: values.userEmail,
           phone: values.userPhone,
           country_id: 2,
+          
         },
       }).then((res)=>{
         useCookie("phone").value = values.userPhone;

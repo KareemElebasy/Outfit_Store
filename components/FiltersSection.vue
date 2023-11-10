@@ -91,7 +91,6 @@ const emits = defineEmits(["filterItems"]);
 
 function handleFilter() {
   emits("filterItems", { ...selectedCat.value });
-
   console.log(selectedCat);
 }
 </script>

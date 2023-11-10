@@ -82,6 +82,9 @@ await useAsyncData("wishlist", () => {
       "Content-type": "application/json",
       Authorization: `Bearer${useCookie("token").value}`,
     },
+    params :{
+      guest_token: `Bearer ${useCookie('guest_token').value}`
+    }
   }).then((res) => (items.value = res.data));
 });
 </script>

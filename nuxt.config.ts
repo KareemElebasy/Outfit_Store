@@ -10,7 +10,7 @@ export default defineNuxtConfig({
   build: {
     transpile: ["primevue", "vee-validate/dist/rules"],
   },
-  plugins: ["~/plugins/i18n.client.ts"],
+  plugins: ["~/plugins/i18n.client.ts","~/plugins/guest_token.js"],
   modules: [
     "nuxt-swiper",
     "@vee-validate/nuxt",

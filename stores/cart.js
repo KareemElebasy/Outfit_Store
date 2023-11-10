@@ -10,13 +10,14 @@ export const useCartStore = defineStore("cart", () => {
           Accept: "application/json",
           "Content-type": "application/json",
           "Accept-Language": locale.value,
+
           Authorization: `Bearer ${useCookie("token").value} `,
           // Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
         body: {
           product_detail_id: data.id,
           quantity: 1,
-          guest_token:"guest_token"
+          guest_token: `Bearer ${useCookie("guest_token").value}`,
         },
       });
     } catch (error) {
@@ -51,7 +52,7 @@ export const useCartStore = defineStore("cart", () => {
           Accept: "application/json",
           "Content-type": "application/json",
           "Accept-Language": locale.value,
-          guest_user: "tokenene",
+          guest_user: `Bearer ${useCookie("guest_token").value}`,
           Authorization: `Bearer ${useCookie("token").value}`,
         },
         body: {
@@ -70,8 +71,10 @@ export const useCartStore = defineStore("cart", () => {
           Accept: "application/json",
           "Content-type": "application/json",
           "Accept-Language": locale.value,
-          guest_user: "tokenene",
           Authorization: `Bearer ${useCookie("token").value} `,
+        },
+        params: {
+          "guest_token": `Bearer ${useCookie("guest_token").value}`,
         },
       });
     } catch (error) {
@@ -92,6 +95,7 @@ export const useCartStore = defineStore("cart", () => {
         },
         body: {
           product_detail_id: id,
+          guest_token: `Bearer ${useCookie("guest_token").value}`,
         },
       }).then(() => refreshNuxtData());
     } catch (error) {
