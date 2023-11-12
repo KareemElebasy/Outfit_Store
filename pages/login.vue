@@ -80,9 +80,9 @@ const onSubmit = handleSubmit((values) => {
       device_token: `Bearer ${useCookie('guest_token').value}`,
     }
   }).then((res) => {
-    if(useCookie('guest_token').value){
-    useCookie('guest_token').value =  res.data.token
-    }
+    // if(useCookie('guest_token').value){
+    // useCookie('guest_token').value =  res.data.token
+    // }
     useCookie("token").value = res.data.token;
     navigateTo("/", { replace: true });
   }).catch((err) => {

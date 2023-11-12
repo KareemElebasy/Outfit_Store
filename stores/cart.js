@@ -10,7 +10,6 @@ export const useCartStore = defineStore("cart", () => {
           Accept: "application/json",
           "Content-type": "application/json",
           "Accept-Language": locale.value,
-
           Authorization: `Bearer ${useCookie("token").value} `,
           // Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

@@ -2,7 +2,7 @@ export default () => {
   const guest_token = useCookie('guest_token')
     if (!guest_token.value) {
       const stringSpace =
-        '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+        'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
       const stringLength = stringSpace.length
       let randomString = ''
       for (let i = 0; i < 64; i++) {

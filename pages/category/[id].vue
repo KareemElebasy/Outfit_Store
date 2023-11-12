@@ -14,7 +14,6 @@
           "
         />
       </div>
-
       <div class="col-span-1 md:col-span-2">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div
@@ -86,7 +85,7 @@ const color_id = ref([]);
 const size = ref([]);
 
 const { data, refresh } = await useAsyncData("categoryItems", () => {
-  console.log(color_id.value)
+  console.log(color_id._rawValue)
   $fetch(`${config.public.baseURL}products?category_id=${route.params.id}`, {
     headers: {
       Accept: "application/json",
@@ -94,7 +93,7 @@ const { data, refresh } = await useAsyncData("categoryItems", () => {
       "Content-type": "application/json",
     },
     params: {
-      color_id: color_id.value,
+      color_id: [...color_id._rawValue],
       sorted: sort_Option.value,
       // size_ids: size.value,
     },
